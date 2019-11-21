@@ -1,4 +1,4 @@
-# WeChatAssistant
+# WeChatAssistant(不再维护，继续使用或许会出现一些问题)
 微信助手，有GUI图形界面、扫码登陆、关键词监控、自动回复、关键词及回复内容展示增加删除、群发消息、多群发送等功能
 
 开发python版本python 3.7.0
@@ -11,8 +11,8 @@
 - 可选择是否开启监听
 
 # 二、下载
-[软件下载地址](https://github.com/LvDunn/WeChatAssistant/blob/master/exe/%E5%BE%AE%E4%BF%A1%E5%8A%A9%E6%89%8Bexe.exe)
-点击进入后，点击右下角Download就可下载。
+[软件下载地址](https://github.com/LvDunn/WeChatAssistant/releases)
+
 
 # 三、界面展示
 

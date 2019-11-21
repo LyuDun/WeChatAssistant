@@ -26,6 +26,7 @@ q = queue.Queue()
 
 @itchat.msg_register(itchat.content.TEXT)
 def text_reply(msg):
+    print(msg)
     if (Listen_Flag == True):
         if msg['Type'] == 'Text':
             reply_content = msg['Text']
@@ -157,7 +158,10 @@ class App(object):
         self.button_login['bg'] = 'white'
 
     def wechat_login(self):
-        itchat.auto_login(hotReload=True)
+        try:
+            itchat.auto_login(hotReload=True)
+        except:
+            q.put("您的微信未能正确登陆，可能是注册时间太短，微信禁止登陆网页版微信")
         chatroomsList =itchat.get_chatrooms()
         for chatroom in chatroomsList:
             group_list.append(chatroom["NickName"])
@@ -234,18 +238,27 @@ class App(object):
     def ShowGroup(self):
         self.c_Listname.delete(0,'end')
         for group in group_list:
-            self.c_Listname.insert(END, group)
-    
+            try:
+                self.c_Listname.insert(END, group)
+            except:
+                q.put("您有群的昵称包含表情(emoji)，超出此软件的显示范围，您可以修改群名称，去除emoji，请谅解。")
+
     def ShowFriends(self):
         friendslist = itchat.get_friends(update=True)[1:]
         global frind_dict
         for frind in friendslist:
             if (frind['RemarkName'] == ''):
                 frind_dict[frind['NickName']] = frind['NickName']
-                self.d_Listname.insert(END, frind['NickName'])
+                try:
+                    self.d_Listname.insert(END, frind['NickName'])
+                except:
+                    q.put("您有好友的昵称包含表情(emoji)，超出此软件的显示范围，您可以修改好友备注，去除emoji，请谅解。")
             else:
                 frind_dict[frind['RemarkName']] = frind['NickName']
-                self.d_Listname.insert(END, frind['RemarkName'])
+                try:
+                    self.d_Listname.insert(END, frind['RemarkName'])
+                except:
+                    q.put("您有好友的昵称包含表情(emoji)，超出此软件的显示范围，您可以修改好友备注，去除emoji，请谅解。")
         print(frind_dict)
 
     def SendFriend(self):
